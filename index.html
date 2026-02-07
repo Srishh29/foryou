@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Proposal Game ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Fredoka', sans-serif;
+  background: url('hearts.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;}
+
+.card {
+  background: rgba(255,255,255,0.35);
+  height:100%;
+  width: 100%;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+h1,h2 {
+  color:#93012d;
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.25);
+}
+
+input {
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 18px;
+}
+
+button {
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: .3s;
+  margin: 10px;
+}
+
+.yes { background: #93012d; color: white; }
+.no { background: white; color: #93012d; }
+
+.finalScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.finalText {
+  color: white;
+  font-size: 60px;
+  text-shadow: 0 0 25px black;
+}
+</style>
+</head>
+<body>
+<div class="container" id="app"></div>
+
+<script>
+let yesSize = 1;
+let noClicks = 0;
+
+function entryQuestion(){
+  document.getElementById('app').innerHTML=`
+    <div class="card">
+      <h1>Answer this to enter ❤️</h1>
+      <p>What is my fav desert?</p>
+      <input id="ans" placeholder="Type here" />
+      <br><br>
+      <button onclick="checkAns()" class="yes">Enter</button>
+    </div>
+  `;
+}
+
+function checkAns(){
+  let v=document.getElementById('ans').value.toLowerCase().trim();
+  if(v==='you') proposalPage();
+  else alert('Wrong answer 😜 Try again!');
+}
+
+function proposalPage(){
+  document.getElementById('app').innerHTML=`
+    <div class="card">
+      <h1>Will You Be My Boyfriend? ❤️</h1>
+      <button class="yes" id="yesBtn" onclick="yesClick()">YES</button>
+      <button class="no" id="noBtn" onclick="noClick()">NO</button>
+    </div>
+  `;
+}
+
+function noClick(){
+  noClicks++;
+  alert('Wrong answer! Try again 😌');
+  yesSize+=0.6;
+  let yesBtn=document.getElementById('yesBtn');
+  yesBtn.style.transform=`scale(${yesSize})`;
+
+  if(noClicks>=5){
+    document.getElementById('noBtn').style.display='none';
+    yesBtn.style.width='100vw';
+    yesBtn.style.height='100vh';
+  }
+}
+
+function yesClick(){
+  document.body.innerHTML=`
+    <div class="finalScreen" style="background-image:url('ourpic.jpeg')">
+      <div class="finalText">I LOVE YOU BABY ❤️</div>
+    </div>
+  `;
+}
+
+entryQuestion();
+</script>
+</body>
+</html>
